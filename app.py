@@ -28,9 +28,13 @@ def predict():
 
         # Make prediction
         prediction = model.predict(features)
-        output = round(prediction[0], 2)
+        if (prediction[0] >= 35):
+            result = 'May be pass'
+        else:
+            result = 'May be fail'
+        output = f'{prediction[0]} ({result})'
 
-        return render_template('index.html', prediction_text='Predicted Performance Index: {}'.format(output))
+        return render_template('index.html', prediction_text='Predicted Performance Index: {}'.format(output, result))
     except Exception as e:
         return f'Error occurred: {str(e)}'
 
