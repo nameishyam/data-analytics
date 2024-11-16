@@ -28,6 +28,8 @@ def predict():
 
         # Make prediction
         prediction = model.predict(features)
+        prediction = np.round(prediction, decimals=1)
+        prediction = np.clip(prediction, 0, 100)
         if (prediction[0] >= 35):
             result = 'May be pass'
         else:
