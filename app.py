@@ -2,10 +2,7 @@ from flask import Flask, request, render_template
 import pickle
 import numpy as np
 
-# ...existing code...
 model = pickle.load(open('./model/model.pkl', 'rb'))
-print(type(model))  # Add this line to check the type
-# ...existing code...
 
 app = Flask(__name__)
 
@@ -16,17 +13,14 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get form data
         hours_studied = int(request.form['hours_studied'])
         previous_scores = int(request.form['previous_scores'])
         activities = int(request.form['activities'])
         sleep_hours = int(request.form['sleep_hours'])
         sample_papers = int(request.form['sample_papers'])
 
-        # Prepare input for prediction
         features = np.array([[hours_studied, previous_scores, activities, sleep_hours, sample_papers]])
 
-        # Make prediction
         prediction = model.predict(features)
         prediction = np.round(prediction, decimals=1)
         prediction = np.clip(prediction, 0, 100)
