@@ -22,7 +22,7 @@ def predict():
         features = np.array([[hours_studied, previous_scores, activities, sleep_hours, sample_papers]])
 
         prediction = model.predict(features)
-        prediction = np.round(prediction, decimals=1)
+        prediction = np.round(prediction, decimals=2)
         prediction = np.clip(prediction, 0, 100)
         if (prediction[0] >= 35):
             result = 'May be pass'
